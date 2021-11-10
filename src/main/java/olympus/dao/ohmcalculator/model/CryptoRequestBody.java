@@ -6,13 +6,11 @@ import lombok.Data;
 public class CryptoRequestBody {
     double currentNumberOfCoins;
     int timeInYears;
-    int frequencyOfRewardsPerDay;
     double percentageIncrease;
 
-    public CryptoRequestBody(double numberOfCoins, int frequencyPerDay, int timeInYears, double percentageIncrease) {
+    public CryptoRequestBody(double numberOfCoins, int timeInYears, double percentageIncrease) {
         this.currentNumberOfCoins = numberOfCoins;
         this.timeInYears = timeInYears;
-        this.frequencyOfRewardsPerDay = frequencyPerDay;
         this.percentageIncrease = percentageIncrease;
     }
 
@@ -31,14 +29,6 @@ public class CryptoRequestBody {
 
     public void setTimeInYears(int timeInYears) {
         this.timeInYears = timeInYears;
-    }
-
-    public int getFrequencyOfRewardsPerDay() {
-        return frequencyOfRewardsPerDay;
-    }
-
-    public void setFrequencyOfRewardsPerDay(int frequencyOfRewardsPerDay) {
-        this.frequencyOfRewardsPerDay = frequencyOfRewardsPerDay;
     }
 
     public double getPercentageIncrease() {
