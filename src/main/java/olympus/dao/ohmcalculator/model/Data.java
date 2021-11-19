@@ -1,7 +1,11 @@
 package olympus.dao.ohmcalculator.model;
 
 public class Data {
-    private ProtocolMetrics protocolMetrics;
+    public Data(ProtocolMetrics protocolMetrics) {
+        this.protocolMetrics = protocolMetrics;
+    }
+
+    ProtocolMetrics protocolMetrics;
 
     public ProtocolMetrics getProtocolMetrics() {
         return protocolMetrics;

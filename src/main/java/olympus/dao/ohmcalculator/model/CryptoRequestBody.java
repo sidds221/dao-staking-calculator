@@ -6,12 +6,10 @@ import lombok.Data;
 public class CryptoRequestBody {
     double currentNumberOfCoins;
     int timeInYears;
-    double percentageIncrease;
 
     public CryptoRequestBody(double numberOfCoins, int timeInYears, double percentageIncrease) {
         this.currentNumberOfCoins = numberOfCoins;
         this.timeInYears = timeInYears;
-        this.percentageIncrease = percentageIncrease;
     }
 
 
@@ -31,11 +29,4 @@ public class CryptoRequestBody {
         this.timeInYears = timeInYears;
     }
 
-    public double getPercentageIncrease() {
-        return percentageIncrease;
-    }
-
-    public void setPercentageIncrease(double percentageIncrease) {
-        this.percentageIncrease = percentageIncrease;
-    }
 }
