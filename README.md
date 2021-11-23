@@ -15,5 +15,6 @@ API
 ```
 ec2-35-85-222-81.us-west-2.compute.amazonaws.com:8000/staking/ohm-rewards/{numberOfOhmsStaked}/{timeInYears}
 ```
-
+```
 example: ec2-35-85-222-81.us-west-2.compute.amazonaws.com:8000/staking/ohm-rewards/5/1
+```
