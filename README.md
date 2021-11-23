@@ -8,7 +8,6 @@ TLDR: Banks offer a ROI for 6% / year
 OLYMPUS DAO: 6% ROI / 5 days. https://app.olympusdao.finance/
 KLIMA DAO: 8% ROI / 5 days.
 WONDERLAND: 10% ROI / 5 days.
-
 ```
 
 
