@@ -3,7 +3,6 @@ package olympus.dao.ohmcalculator.controller;
 import olympus.dao.ohmcalculator.model.CryptoRequestBody;
 import olympus.dao.ohmcalculator.model.CryptoResponseBody;
 import olympus.dao.ohmcalculator.service.RewardRate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -17,41 +16,38 @@ public class OhmRewardsCalculator {
     @PostMapping("/ohm-rewards")
     public CryptoResponseBody ohmCalculator(@RequestBody CryptoRequestBody cryptoRequestBody) {
         double numberOfCoins = cryptoRequestBody.getCurrentNumberOfCoins();
-        int timeInYears = cryptoRequestBody.getTimeInYears();
         double percentageIncrease = rewardRate.getOhmRewardRate();
+        double pricePerCoin = rewardRate.pricePerCoin_ohm;
+        int runwayCurrent = rewardRate.currentRunway;
 
-        return calculateRewards(numberOfCoins, timeInYears, percentageIncrease);
+        return calculateRewards(numberOfCoins, percentageIncrease, runwayCurrent, pricePerCoin);
     }
 
-    @GetMapping("/ohm-rewards/{numberOfCoins}/{timeInYears}")
+    @GetMapping("/ohm-rewards/{numberOfCoins}")
     public CryptoResponseBody getOhmCalculator(
-            @PathVariable double numberOfCoins,
-            @PathVariable int timeInYears
+            @PathVariable double numberOfCoins
     ) {
-
-        return calculateRewards(numberOfCoins, timeInYears, rewardRate.getOhmRewardRate());
+        return calculateRewards(numberOfCoins, rewardRate.getOhmRewardRate(), rewardRate.currentRunway, rewardRate.pricePerCoin_ohm);
     }
 
-    @GetMapping("/klima-rewards/{numberOfCoins}/{timeInYears}")
+    @GetMapping("/klima-rewards/{numberOfCoins}")
     public CryptoResponseBody getKlimaCalculator(
-            @PathVariable double numberOfCoins,
-            @PathVariable int timeInYears
+            @PathVariable double numberOfCoins
     ) {
-        return calculateRewards(numberOfCoins, timeInYears, rewardRate.getKlimaRewardRate());
+        return calculateRewards(numberOfCoins, rewardRate.getKlimaRewardRate(), 365, 1500);
     }
 
-    @GetMapping("/time-rewards/{numberOfCoins}/{timeInYears}")
+    @GetMapping("/time-rewards/{numberOfCoins}")
     public CryptoResponseBody getTimeCalculator(
-            @PathVariable double numberOfCoins,
-            @PathVariable int timeInYears
+            @PathVariable double numberOfCoins
     ) {
-        return calculateRewards(numberOfCoins, timeInYears, rewardRate.getTimeRewardRate());
+        return calculateRewards(numberOfCoins, rewardRate.getTimeRewardRate(), 365,7800);
     }
 
-    private CryptoResponseBody calculateRewards(double numberOfCoins, int timeInYears, double percentageIncrease) {
+    private CryptoResponseBody calculateRewards(double numberOfCoins,  double percentageIncrease, int runwayCurrent, double pricePerCoin) {
         List<String> listOfRewards = new ArrayList<>();
 
-        for(int i = 1; i <= 365 * 3 * timeInYears; i ++) {
+        for(int i = 1; i <= runwayCurrent * 3; i ++) {
             if(i % 3 == 0 && i != 3) {
                 listOfRewards.add("day"+i/3 +"   "+numberOfCoins);
             }
@@ -60,7 +56,10 @@ public class OhmRewardsCalculator {
         }
 
         CryptoResponseBody cryptoResponseBody = new CryptoResponseBody();
+
         cryptoResponseBody.setListOfRewardsPerDay(listOfRewards);
+        cryptoResponseBody.setPricePerCoin(pricePerCoin);
+        cryptoResponseBody.setEstimatedReturn(pricePerCoin * numberOfCoins);
         return cryptoResponseBody;
     }
 }
